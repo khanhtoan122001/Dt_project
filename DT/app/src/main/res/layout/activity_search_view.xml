@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SearchView">
 
-    <!-- Note: A RecyclerView can also be used -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView2"
+    <SearchView
+        android:id="@+id/search_view_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </androidx.core.widget.NestedScrollView>
-
+        android:layout_height="wrap_content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

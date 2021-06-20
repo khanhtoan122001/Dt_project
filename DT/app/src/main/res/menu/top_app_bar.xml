@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/speak"
+        android:icon="@drawable/speaker"
+        android:title="speak"
+        android:contentDescription="speak"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_24dp"
         android:title="@string/search"
@@ -14,12 +20,8 @@
         android:title="@string/edit"
         android:contentDescription="@string/content_description_edit"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/back"
-        android:icon="@drawable/ic_back_24dp"
-        android:title="back"
-        android:contentDescription="back_des"
-        app:showAsAction="ifRoom" />
+
+
 
 
 </menu>
