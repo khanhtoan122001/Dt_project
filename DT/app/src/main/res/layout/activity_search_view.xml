@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SearchView">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,24 +22,27 @@
 
     <!-- Note: A RecyclerView can also be used -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@+id/nestedScrollView"
-        app:layout_anchorGravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <!-- Scrollable content -->
 
-        <Button
-            android:id="@+id/containedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="100dp"
-            android:text="Anh - Việt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        app:layout_anchor="@+id/nestedScrollView2"
+        app:layout_anchorGravity="center">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
