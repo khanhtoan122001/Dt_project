@@ -19,7 +19,7 @@ public class Eng_Vie extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(Eng_Vie.this, SearchResult.class);
-                intent.putExtra(query, 1);
+                intent.putExtra("eng", query);
                 startActivity(intent);
                 return false;
             }
