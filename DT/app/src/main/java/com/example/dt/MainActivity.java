@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void Click(View view)
     {
-        Intent intent = new Intent(this, SearchView.class);
+        Intent intent = new Intent(this, Eng_Vie.class);
         startActivity(intent);
     }
 }
