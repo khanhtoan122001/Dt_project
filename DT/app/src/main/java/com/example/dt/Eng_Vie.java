@@ -15,7 +15,7 @@ public class Eng_Vie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eng_vie);
         searchView = (SearchView) findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(Eng_Vie.this, SearchResult.class);
@@ -28,7 +28,7 @@ public class Eng_Vie extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-        }));
+        });
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
