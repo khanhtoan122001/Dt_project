@@ -6,12 +6,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -23,9 +20,7 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     //in android calling network requests on the main thread forbidden by default
     //create class to do async job
 
-    @SuppressLint("StaticFieldLeak")
     final Context context;
-    @SuppressLint("StaticFieldLeak")
     final TextView textView;
 
     final MediaPlayer mediaPlayer;
@@ -58,7 +53,7 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
             String line = null;
             while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line + "\n");
+                stringBuilder.append(line).append("\n");
             }
 
             return stringBuilder.toString();
@@ -84,13 +79,19 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
             JSONObject entries = array_1.getJSONObject(0);
             JSONArray e = entries.getJSONArray("entries");
+            JSONObject lexicalCategory = entries.getJSONObject("lexicalCategory");
 
             JSONObject pronunciations = e.getJSONObject(0);
             JSONArray p = pronunciations.getJSONArray("pronunciations");
 
             urlAudio = p.getJSONObject(0).getString("audioFile");
-            textView.setText(urlAudio);
+            //textView.setText(urlAudio);
+            phoneticSpelling = p.getJSONObject(0).getString("phoneticSpelling");
 
+            CategoryInfo = lexicalCategory.getString("text");
+
+            CharSequence textViewstr = textView.getText();
+            textView.setText(textViewstr + "\n" + phoneticSpelling + "\n" + CategoryInfo + "\n");
             try {
                 mediaPlayer.setDataSource(urlAudio);
                 mediaPlayer.prepare();
