@@ -30,6 +30,8 @@ public class SearchResult extends AppCompatActivity {
     DictionaryRequest dr;
 
 
+    String result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
