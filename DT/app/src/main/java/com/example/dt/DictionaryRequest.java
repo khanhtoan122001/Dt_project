@@ -21,13 +21,15 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     //create class to do async job
 
     final Context context;
-    final TextView textView;
+    final TextView txtSpelling;
+    final TextView txtCategory;
 
     final MediaPlayer mediaPlayer;
 
-    DictionaryRequest(Context context, TextView textView, MediaPlayer mediaPlayer){
+    DictionaryRequest(Context context, TextView txtSpelling, TextView txtCategory, MediaPlayer mediaPlayer){
         this.context = context;
-        this.textView = textView;
+        this.txtSpelling = txtSpelling;
+        this.txtCategory = txtCategory;
         this.mediaPlayer = mediaPlayer;
     }
     public String urlAudio = "";
@@ -90,8 +92,8 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
 
             CategoryInfo = lexicalCategory.getString("text");
 
-            CharSequence textViewstr = textView.getText();
-            textView.setText(textViewstr + "\n" + phoneticSpelling + "\n" + CategoryInfo + "\n");
+            txtSpelling.setText(phoneticSpelling);
+            txtCategory.setText(CategoryInfo);
             try {
                 mediaPlayer.setDataSource(urlAudio);
                 mediaPlayer.prepare();

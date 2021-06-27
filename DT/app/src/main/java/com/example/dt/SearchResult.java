@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 public class SearchResult extends AppCompatActivity {
     //final String result;
     String url;
-    TextView textView;
+    TextView txtSpelling, txtCategory, txtTranslations, txtLookup, txtExamples;
     String eng;
     MediaPlayer mediaPlayer = new MediaPlayer();
     DictionaryRequest dr;
@@ -49,41 +49,16 @@ public class SearchResult extends AppCompatActivity {
                 return false;
             }
         });
-        textView = (TextView) findViewById(R.id.textView);
-        textView.setText("");
-        translate = new Translate(eng, textView, this);
+        txtSpelling = (TextView) findViewById(R.id.txtspelling);
+        txtCategory = (TextView) findViewById(R.id.txtCategory);
+        txtTranslations = (TextView) findViewById(R.id.txtTranslations);
+        txtLookup = (TextView) findViewById(R.id.txtLookup);
+        txtExamples = (TextView) findViewById(R.id.txtExamples);
+        translate = new Translate(eng, "en", "vi", txtTranslations, txtLookup, txtExamples, this);
         translate.GetTranslations();
+        translate.GetLookup();
         sendRequest();
-        playMedia();
-        /*try {
-            client.newCall(translate.getRequestTranstale()).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.print(e);
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if(response.isSuccessful()){
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-
-                                try {
-                                    textView.setText(translate.prettify(response.body().string()));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-                    }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        //playMedia();
     }
 
 
@@ -102,7 +77,7 @@ public class SearchResult extends AppCompatActivity {
     }
 
     public void sendRequest(){
-        dr = new DictionaryRequest(this, textView, mediaPlayer);
+        dr = new DictionaryRequest(this, txtSpelling, txtCategory, mediaPlayer);
         url = dictionaryEntries("pronunciations");
         dr.execute(url);
     }
