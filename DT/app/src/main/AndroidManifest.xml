@@ -19,7 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DT">
-        <activity android:name=".Eng_Vie"></activity>
+        <activity android:name=".Eng_Vie"
+            android:parentActivityName=".MainActivity"
+            >
+
+        </activity>
         <activity android:name=".SearchView" />
         <activity
             android:name=".SearchResult"

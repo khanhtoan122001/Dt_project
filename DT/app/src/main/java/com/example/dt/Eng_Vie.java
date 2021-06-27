@@ -35,5 +35,6 @@ public class Eng_Vie extends AppCompatActivity {
                 searchView.setIconified(false);
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
