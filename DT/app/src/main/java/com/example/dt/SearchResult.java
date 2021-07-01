@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.squareup.okhttp.OkHttpClient;
 
 import okhttp3.OkHttpClient;
 
@@ -57,6 +58,7 @@ public class SearchResult extends AppCompatActivity {
         translate = new Translate(eng, "en", "vi", txtTranslations, txtLookup, txtExamples, this);
         translate.GetTranslations();
         translate.GetLookup();
+        txtTranslations.setText("=>" + txtTranslations.getText());
         sendRequest();
         //playMedia();
     }
@@ -80,6 +82,7 @@ public class SearchResult extends AppCompatActivity {
         dr = new DictionaryRequest(this, txtSpelling, txtCategory, mediaPlayer);
         url = dictionaryEntries("pronunciations");
         dr.execute(url);
+        txtSpelling.setText("[" + txtSpelling.getText() + "]");
     }
 
 }
