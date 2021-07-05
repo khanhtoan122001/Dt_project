@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.OkHttpClient;
 
 import okhttp3.OkHttpClient;
 
@@ -55,9 +55,11 @@ public class SearchResult extends AppCompatActivity {
         txtTranslations = (TextView) findViewById(R.id.txtTranslations);
         txtLookup = (TextView) findViewById(R.id.txtLookup);
         txtExamples = (TextView) findViewById(R.id.txtExamples);
-        translate = new Translate(eng, "en", "vi", txtTranslations, txtLookup, txtExamples, this);
-        translate.GetTranslations();
-        translate.GetLookup();
+
+        //translate = new Translate(eng, "en", "vi", txtTranslations, txtLookup, txtExamples, this);
+        translate = new Translate(eng, "vi", "en", txtTranslations, txtLookup, txtExamples, this);
+        translate.Run();
+        //translate.GetLookup();
         txtTranslations.setText("=>" + txtTranslations.getText());
         sendRequest();
         //playMedia();

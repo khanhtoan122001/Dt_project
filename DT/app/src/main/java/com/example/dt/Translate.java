@@ -33,35 +33,12 @@ public class Translate extends AppCompatActivity {
     private static String subscriptionKey = "5840f6cb5483475b8219c76b7f49a78a";
 
     List<String> lookup = new ArrayList<>();
+    List<String> listexamples = new ArrayList<>();
     public String translations;
     // Add your location, also known as region. The default is global.
     // This is required if using a Cognitive Services resource.
     private static String location = "southeastasia";
 
-    HttpUrl urlTranslate = new HttpUrl.Builder()
-            .scheme("https")
-            .host("api.cognitive.microsofttranslator.com")
-            .addPathSegment("/translate")
-            .addQueryParameter("api-version", "3.0")
-            .addQueryParameter("from", "en")
-            .addQueryParameter("to", "vi")
-            .build();
-    HttpUrl urlLookup = new HttpUrl.Builder()
-            .scheme("https")
-            .host("api.cognitive.microsofttranslator.com")
-            .addPathSegment("/dictionary/lookup")
-            .addQueryParameter("api-version", "3.0")
-            .addQueryParameter("from", "en")
-            .addQueryParameter("to", "vi")
-            .build();
-    HttpUrl urlExamples = new HttpUrl.Builder()
-            .scheme("https")
-            .host("api.cognitive.microsofttranslator.com")
-            .addPathSegment("/dictionary/examples")
-            .addQueryParameter("api-version", "3.0")
-            .addQueryParameter("from", "en")
-            .addQueryParameter("to", "vi")
-            .build();
     public Translate(String text, String to, String from, TextView txtTranslations, TextView txtLookup, TextView txtExamples, Context context) {
         this.text = text;
         this.to = to;
@@ -72,37 +49,105 @@ public class Translate extends AppCompatActivity {
         this.context = context;
     }
 
+    void Run(){
+        GetTranslations();
+        GetLookup();
+    }
+
+    HttpUrl GetUrlTranslate(String from, String to){
+        return new HttpUrl.Builder()
+                .scheme("https")
+                .host("api.cognitive.microsofttranslator.com")
+                .addPathSegment("/translate")
+                .addQueryParameter("api-version", "3.0")
+                .addQueryParameter("from", from)
+                .addQueryParameter("to", to)
+                .build();
+    }
+
+    HttpUrl GetUrlLookup(String from, String to){
+        return new HttpUrl.Builder()
+                .scheme("https")
+                .host("api.cognitive.microsofttranslator.com")
+                .addPathSegment("/dictionary/lookup")
+                .addQueryParameter("api-version", "3.0")
+                .addQueryParameter("from", from)
+                .addQueryParameter("to", to)
+                .build();
+    }
+
+    HttpUrl GetUrlExamples(String from, String to){
+        return new HttpUrl.Builder()
+                .scheme("https")
+                .host("api.cognitive.microsofttranslator.com")
+                .addPathSegment("/dictionary/examples")
+                .addQueryParameter("api-version", "3.0")
+                .addQueryParameter("from", from)
+                .addQueryParameter("to", to)
+                .build();
+    }
+
     // Instantiates the OkHttpClient.
     //OkHttpClient client = new OkHttpClient();
     //String result = "";
 
     // This function performs a POST request.
-    private Request getTranstaleRequest() throws IOException {
+    private Request getTranstaleRequest(String text) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
                 "[{\"Text\": \"" + text + "\"}]");
-        return new Request.Builder().url(urlTranslate).post(body)
+        return new Request.Builder().url(GetUrlTranslate(from, to)).post(body)
                 .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
                 .addHeader("Ocp-Apim-Subscription-Region", location)
                 .addHeader("Content-type", "application/json")
                 .build();
     }
 
-    private Request getLookupRequest() throws IOException {
+    private Request getLookupRequest(String text) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
                 "[{\"Text\": \"" + text + "\"}]");
-        return new Request.Builder().url(urlLookup).post(body)
+        return new Request.Builder().url(GetUrlLookup(from, to)).post(body)
                 .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
                 .addHeader("Ocp-Apim-Subscription-Region", location)
                 .addHeader("Content-type", "application/json")
                 .build();
+    }
+
+    private void GetTransExamples(){
+        for(String item : listexamples){
+            OkHttpClient client = new OkHttpClient();
+            try {
+                client.newCall(getTranstaleRequest(item)).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    txtExamples.setText(txtExamples.getText() + "\n\n" + item + "\n" + GetStrTranslation(response.body().string()));
+                                } catch (JSONException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void GetTranslations(){
         OkHttpClient client = new OkHttpClient();
         try {
-            client.newCall(this.getTranstaleRequest()).enqueue(new Callback() {
+            client.newCall(this.getTranstaleRequest(text)).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -115,14 +160,8 @@ public class Translate extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    JSONArray js = new JSONArray(response.body().string());
-                                    JSONObject results = js.getJSONObject(0);
-
-                                    JSONArray translations = results.getJSONArray("translations");
-
-                                    JSONObject txt = translations.getJSONObject(0);
-
-                                    txtTranslations.setText(txt.getString("text"));
+                                    txtTranslations.setText(GetStrTranslation(response.body().string()));
+                                    //txtTranslations.setText(response.body().string());
                                     //txtTranslations.setTextSize(20);
                                 } catch (IOException | JSONException e) {
                                     e.printStackTrace();
@@ -141,7 +180,7 @@ public class Translate extends AppCompatActivity {
     public void GetLookup(){
         OkHttpClient client = new OkHttpClient();
         try {
-            client.newCall(this.getLookupRequest()).enqueue(new Callback() {
+            client.newCall(this.getLookupRequest(text)).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -154,17 +193,7 @@ public class Translate extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    JSONArray js = new JSONArray(response.body().string());
-                                    JSONObject results = js.getJSONObject(0);
-                                    String lookupStr = "";
-                                    JSONArray translations = results.getJSONArray("translations");
-                                    for(int i = 0; i < translations.length() && i < 5; i++){
-                                        JSONObject obj = translations.getJSONObject(i);
-                                        lookupStr += obj.getString("normalizedTarget");
-                                        lookup.add(obj.getString("normalizedTarget"));
-                                        if(i != translations.length() - 1)
-                                            lookupStr += ", ";
-                                    }
+                                    String lookupStr = GetStrLookup(response.body().string());
 
                                     GetExamples();
 
@@ -187,7 +216,7 @@ public class Translate extends AppCompatActivity {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
                 "[{\"Text\": \""+ text +"\", \"Translation\": \"" + trans + "\"}]");
-        Request request = new Request.Builder().url(urlExamples).post(body)
+        Request request = new Request.Builder().url(GetUrlExamples(from, to)).post(body)
                 .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
                 .addHeader("Ocp-Apim-Subscription-Region", location)
                 .addHeader("Content-type", "application/json")
@@ -211,9 +240,10 @@ public class Translate extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
+                                    listexamples.clear();
                                     JSONArray js = new JSONArray(response.body().string());
                                     JSONObject results = js.getJSONObject(0);
-                                    String txt = "";
+                                    //String txt = "";
                                     JSONArray examples = results.getJSONArray("examples");
                                     for(int i = 0; i < 2 && i < examples.length(); i++){
                                         JSONObject example = examples.getJSONObject(i);
@@ -223,9 +253,11 @@ public class Translate extends AppCompatActivity {
                                         String target = example.getString("targetPrefix");
                                         target += example.getString("targetTerm")
                                                 + example.getString("targetSuffix");
-                                        txt += source + "\n" + target + "\n\n";
+                                        //txt += source + "\n" + target + "\n\n";
+                                        listexamples.add(source);
                                     }
-                                    txtExamples.setText(String.format("%s\n%s", txtExamples.getText(), txt));
+                                    GetTransExamples();
+                                    //txtExamples.setText(String.format("%s\n%s", txtExamples.getText(), txt));
                                 } catch (IOException | JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -240,13 +272,40 @@ public class Translate extends AppCompatActivity {
 
     }
 
+    public String GetStrTranslation(String str) throws JSONException {
+        JSONArray js = new JSONArray(str);
+        JSONObject results = js.getJSONObject(0);
+
+        JSONArray translations = results.getJSONArray("translations");
+
+        JSONObject txt = translations.getJSONObject(0);
+
+        return txt.getString("text");
+    }
+
+    public String GetStrLookup(String str) throws JSONException {
+        JSONArray js = new JSONArray(str);
+        JSONObject results = js.getJSONObject(0);
+        String lookupStr = "";
+        JSONArray translations = results.getJSONArray("translations");
+        for(int i = 0; i < translations.length() && i < 5; i++){
+            JSONObject obj = translations.getJSONObject(i);
+            lookupStr += obj.getString("normalizedTarget");
+            lookup.add(obj.getString("normalizedTarget"));
+            if(i != translations.length() - 1)
+                lookupStr += ", ";
+        }
+
+        return lookupStr;
+    }
+
     // This function prettifies the json response.
-    public String prettify(String json_text) {
+    /*public String prettify(String json_text) {
         JsonParser parser = new JsonParser();
         JsonElement json = parser.parse(json_text);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         return gson.toJson(json);
-    }
+    }*/
 
 }
