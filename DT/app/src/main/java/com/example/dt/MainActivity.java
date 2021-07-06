@@ -15,11 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void Click(View view)
+    public void Click1(View view)
     {
         Intent intent = new Intent(this, Eng_Vie.class);
         startActivity(intent);
     }
-
+    public void Click2(View view)
+    {
+        Intent intent = new Intent(this, MultiLanguage.class);
+        startActivity(intent);
+    }
 
 }
