@@ -15,10 +15,10 @@
         android:contentDescription="@string/content_description_search"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/edit"
-        android:icon="@drawable/ic_edit_24dp"
-        android:title="@string/edit"
+        android:id="@+id/main"
         android:contentDescription="@string/content_description_edit"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/main"
         app:showAsAction="ifRoom" />
 
 
