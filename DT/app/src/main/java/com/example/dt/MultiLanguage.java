@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+/*import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.JsonParser;*/
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -41,13 +41,12 @@ public class MultiLanguage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_language);
 
-        list = (TextView) findViewById(R.id.list);
         sp1 = (Spinner) findViewById(R.id.spinner);
         sp2 = (Spinner) findViewById(R.id.spinner2);
 
         GetListLang();
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lang);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_dropdown_item_1line);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -56,7 +55,7 @@ public class MultiLanguage extends AppCompatActivity {
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                
             }
 
             @Override
@@ -130,11 +129,11 @@ public class MultiLanguage extends AppCompatActivity {
             }
         });
     }
-    public String prettify(String json_text) {
+    /*public String prettify(String json_text) {
         JsonParser parser = new JsonParser();
         JsonElement json = parser.parse(json_text);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         return gson.toJson(json);
-    }
+    }*/
 }
