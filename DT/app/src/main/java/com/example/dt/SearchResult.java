@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 //import com.squareup.okhttp.OkHttpClient;
 
 import okhttp3.OkHttpClient;
@@ -24,6 +25,7 @@ public class SearchResult extends AppCompatActivity {
     MediaPlayer mediaPlayer = new MediaPlayer();
     DictionaryRequest dr;
     MaterialToolbar toolbar;
+    LinearProgressIndicator loading;
 
     //String subscriptionKey = "5840f6cb5483475b8219c76b7f49a78a";
     //String location = "southeastasia";
@@ -50,6 +52,7 @@ public class SearchResult extends AppCompatActivity {
                 return false;
             }
         });
+        loading = (LinearProgressIndicator) findViewById(R.id.loading);
         txtSpelling = (TextView) findViewById(R.id.txtspelling);
         txtCategory = (TextView) findViewById(R.id.txtCategory);
         txtTranslations = (TextView) findViewById(R.id.txtTranslations);
@@ -57,7 +60,7 @@ public class SearchResult extends AppCompatActivity {
         txtExamples = (TextView) findViewById(R.id.txtExamples);
 
         //translate = new Translate(eng, "en", "vi", txtTranslations, txtLookup, txtExamples, this);
-        translate = new Translate(eng, "vi", "en", txtTranslations, txtLookup, txtExamples, this);
+        translate = new Translate(eng, "vi", "en", txtTranslations, txtLookup, txtExamples, this, loading);
         translate.Run();
         //translate.GetLookup();
         txtTranslations.setText("=>" + txtTranslations.getText());
@@ -81,7 +84,7 @@ public class SearchResult extends AppCompatActivity {
     }
 
     public void sendRequest(){
-        dr = new DictionaryRequest(this, txtSpelling, txtCategory, mediaPlayer);
+        dr = new DictionaryRequest(this, txtSpelling, txtCategory, loading, mediaPlayer);
         url = dictionaryEntries("pronunciations");
         dr.execute(url);
         txtSpelling.setText("[" + txtSpelling.getText() + "]");

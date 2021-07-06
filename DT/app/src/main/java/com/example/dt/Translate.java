@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.*;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -30,6 +30,7 @@ public class Translate extends AppCompatActivity {
     final String text, to, from;
     final TextView txtTranslations, txtLookup, txtExamples;
     final Context context;
+    final LinearProgressIndicator loading;
     private static String subscriptionKey = "5840f6cb5483475b8219c76b7f49a78a";
 
     List<String> lookup = new ArrayList<>();
@@ -39,7 +40,7 @@ public class Translate extends AppCompatActivity {
     // This is required if using a Cognitive Services resource.
     private static String location = "southeastasia";
 
-    public Translate(String text, String to, String from, TextView txtTranslations, TextView txtLookup, TextView txtExamples, Context context) {
+    public Translate(String text, String to, String from, TextView txtTranslations, TextView txtLookup, TextView txtExamples, Context context, LinearProgressIndicator loading) {
         this.text = text;
         this.to = to;
         this.from = from;
@@ -47,11 +48,14 @@ public class Translate extends AppCompatActivity {
         this.txtLookup = txtLookup;
         this.txtExamples = txtExamples;
         this.context = context;
+        this.loading = loading;
     }
 
     void Run(){
+        loading.show();
         GetTranslations();
         GetLookup();
+        //loading.hide();
     }
 
     HttpUrl GetUrlTranslate(String from, String to){
@@ -115,6 +119,7 @@ public class Translate extends AppCompatActivity {
     }
 
     private void GetTransExamples(){
+        loading.show();
         for(String item : listexamples){
             OkHttpClient client = new OkHttpClient();
             try {
@@ -129,6 +134,7 @@ public class Translate extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                loading.hide();
                                 try {
                                     txtExamples.setText(txtExamples.getText() + "\n\n" + item + "\n" + GetStrTranslation(response.body().string()));
                                 } catch (JSONException | IOException e) {
@@ -145,6 +151,7 @@ public class Translate extends AppCompatActivity {
     }
 
     public void GetTranslations(){
+        loading.show();
         OkHttpClient client = new OkHttpClient();
         try {
             client.newCall(this.getTranstaleRequest(text)).enqueue(new Callback() {
@@ -163,6 +170,7 @@ public class Translate extends AppCompatActivity {
                                     txtTranslations.setText(GetStrTranslation(response.body().string()));
                                     //txtTranslations.setText(response.body().string());
                                     //txtTranslations.setTextSize(20);
+                                    loading.hide();
                                 } catch (IOException | JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -179,6 +187,7 @@ public class Translate extends AppCompatActivity {
 
     public void GetLookup(){
         OkHttpClient client = new OkHttpClient();
+        loading.show();
         try {
             client.newCall(this.getLookupRequest(text)).enqueue(new Callback() {
                 @Override
@@ -196,6 +205,8 @@ public class Translate extends AppCompatActivity {
                                     String lookupStr = GetStrLookup(response.body().string());
 
                                     GetExamples();
+
+                                    loading.hide();
 
                                     txtLookup.setText(lookupStr);
                                     //txtLookup.setTextSize(15);
@@ -227,6 +238,7 @@ public class Translate extends AppCompatActivity {
     public void GetExamples(){
         OkHttpClient client = new OkHttpClient();
         for(String item : lookup){
+            loading.show();
             try {
                 client.newCall(getRequestExamples(item)).enqueue(new Callback() {
                     @Override
@@ -239,6 +251,7 @@ public class Translate extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                loading.hide();
                                 try {
                                     listexamples.clear();
                                     JSONArray js = new JSONArray(response.body().string());

@@ -11,6 +11,8 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,13 +25,15 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     final Context context;
     final TextView txtSpelling;
     final TextView txtCategory;
+    final LinearProgressIndicator loading;
 
     final MediaPlayer mediaPlayer;
 
-    DictionaryRequest(Context context, TextView txtSpelling, TextView txtCategory, MediaPlayer mediaPlayer){
+    DictionaryRequest(Context context, TextView txtSpelling, TextView txtCategory, LinearProgressIndicator loading, MediaPlayer mediaPlayer){
         this.context = context;
         this.txtSpelling = txtSpelling;
         this.txtCategory = txtCategory;
+        this.loading = loading;
         this.mediaPlayer = mediaPlayer;
     }
     public String urlAudio = "";
@@ -72,6 +76,7 @@ public class DictionaryRequest extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        loading.hide();
         try {
             JSONObject js = new JSONObject(result);
             JSONArray results = js.getJSONArray("results");
