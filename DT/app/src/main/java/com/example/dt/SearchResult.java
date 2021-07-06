@@ -3,7 +3,6 @@ package com.example.dt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -47,13 +46,6 @@ public class SearchResult extends AppCompatActivity {
                     case R.id.speak:
                         playMedia();
                         return true;
-                    case R.id.search:
-                        Intent intent1 = new Intent(SearchResult.this, Eng_Vie.class);
-                        startActivity(intent1);
-                        return true;
-                    case R.id.main:
-                        Intent intent2 = new Intent(SearchResult.this, MainActivity.class);
-                        startActivity(intent2);
                 }
                 return false;
             }
