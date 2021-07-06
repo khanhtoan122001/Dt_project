@@ -19,15 +19,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DT">
-        <activity android:name=".Eng_Vie"></activity>
-        <activity android:name=".SearchView" />
+        <activity android:name=".Eng_Vie"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
         <activity
             android:name=".SearchResult"
             android:label="@string/title_activity_search_result"
             android:theme="@style/Theme.DT.NoActionBar" />
-        <activity android:name=".DetailsActivity" />
-        <activity android:name=".PlaybackActivity" />
-        <activity android:name=".BrowseErrorActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
