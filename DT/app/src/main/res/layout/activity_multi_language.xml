@@ -18,58 +18,35 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"/>
 
-            <TableLayout
+            <SearchView
+                android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:stretchColumns="0, 1">
+                android:layout_height="wrap_content"
+                android:background="@drawable/back">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            </SearchView>
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:spinnerMode="dialog" />
-
-                    <Spinner
-                        android:id="@+id/spinner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:spinnerMode="dialog" />
-                </TableRow>
-            </TableLayout>
-
-            <TableLayout
+            <Spinner
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="0, 1"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:spinnerMode="dialog" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/txtResult"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/back" />
 
-                    <SearchView
-                        android:id="@+id/search_view"
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/back">
-
-                    </SearchView>
-
-                    <TextView
-                        android:id="@+id/txtResult"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:background="@drawable/back" />
-                </TableRow>
-
-            </TableLayout>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:spinnerMode="dialog"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
