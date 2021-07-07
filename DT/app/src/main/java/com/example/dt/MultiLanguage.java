@@ -33,8 +33,10 @@ public class MultiLanguage extends AppCompatActivity {
 
     TextView list;
     Spinner sp1, sp2;
+    String from = "", to = "";
     ArrayList<JSONObject> listLang = new ArrayList<JSONObject>();
     ArrayList<String> lang = new ArrayList<>();
+    ArrayAdapter adapter;//ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_dropdown_item_1line);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +46,23 @@ public class MultiLanguage extends AppCompatActivity {
         sp1 = (Spinner) findViewById(R.id.spinner);
         sp2 = (Spinner) findViewById(R.id.spinner2);
 
+
         GetListLang();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_dropdown_item_1line);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lang);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        sp1.setAdapter(adapter);
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                
+                JSONObject obj = listLang.get(position);
+                try {
+                    from = obj.getString("code");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -63,8 +70,22 @@ public class MultiLanguage extends AppCompatActivity {
 
             }
         });
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                JSONObject obj = listLang.get(position);
+                try {
+                    to = obj.getString("code");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        sp2.setAdapter(adapter);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -118,6 +139,9 @@ public class MultiLanguage extends AppCompatActivity {
 
                                 //jsonArray.put(obj);
                             }
+
+                            sp1.setAdapter(adapter);
+                            sp2.setAdapter(adapter);
 
                             //list.setText(jsonArray.toString());
 
