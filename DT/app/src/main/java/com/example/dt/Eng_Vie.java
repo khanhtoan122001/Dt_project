@@ -20,7 +20,7 @@ public class Eng_Vie extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = this;
+        //Context context = this;
         setContentView(R.layout.activity_eng_vie);
 
         /*SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -64,7 +64,22 @@ public class Eng_Vie extends AppCompatActivity {
         SearchView searchView = (SearchView)
                 MenuItemCompat.getActionView(searchItem);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            Intent intentResult = new Intent(Eng_Vie.this, SearchResult.class);
+            intentResult.putExtra("eng", query);
+
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(Eng_Vie.this,
+                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+
+            suggestions.saveRecentQuery(query, null);
+
+            startActivity(intentResult);
+        }
+
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(Eng_Vie.this, SearchResult.class);
@@ -72,6 +87,7 @@ public class Eng_Vie extends AppCompatActivity {
 
                 SearchRecentSuggestions suggestions = new SearchRecentSuggestions(Eng_Vie.this,
                         MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+
                 suggestions.saveRecentQuery(query, null);
 
                 startActivity(intent);
@@ -82,7 +98,9 @@ public class Eng_Vie extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-        });
+        });*/
+
+
 
         SearchManager searchManager = (SearchManager)
                 getSystemService(Context.SEARCH_SERVICE);
