@@ -18,29 +18,58 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"/>
 
-            <SearchView
-                android:id="@+id/search_view"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:stretchColumns="0, 1"
+                android:orientation="horizontal">
 
-            </SearchView>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
-            <Spinner
-                android:id="@+id/spinner"
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog" />
+                android:layout_height="match_parent"
+                android:stretchColumns="0, 1"
+                android:orientation="horizontal" >
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtResult"/>
+                    <SearchView
+                        android:id="@+id/search_view"
+                        android:layout_width="3dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/back">
+
+                    </SearchView>
+
+                    <TextView
+                        android:id="@+id/txtResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@drawable/back" />
+                </TableRow>
+
+            </TableLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

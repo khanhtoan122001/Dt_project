@@ -107,7 +107,12 @@ public class MultiLanguage extends AppCompatActivity {
                 return false;
             }
         });
-
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
     }
 
     public void GetListLang(){
