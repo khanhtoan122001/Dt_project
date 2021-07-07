@@ -2,6 +2,8 @@ package com.example.dt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.provider.SearchRecentSuggestions;
 import android.widget.SearchView;
 import android.os.Bundle;
 import android.view.View;

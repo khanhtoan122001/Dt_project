@@ -21,7 +21,13 @@
         android:theme="@style/Theme.DT" >
         <activity android:name=".MultiLanguage" >
         </activity>
-        <activity android:name=".Eng_Vie" />
+        <activity android:name=".Eng_Vie">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".SearchView" />
         <activity
             android:name=".SearchResult"
@@ -37,6 +43,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider android:name=".MySuggestionProvider"
+            android:authorities="com.example.dt.MySuggestionProvider" />
     </application>
 
 </manifest>
