@@ -38,12 +38,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
             android:orientation="horizontal">
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -61,13 +59,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:textSize="20sp"
                         android:text="[" />
 
                     <TextView
                         android:id="@+id/txtspelling"
                         android:layout_width="wrap_content"
-                        android:layout_height="20sp"
+                        android:layout_height="wrap_content"
                         android:text=""
+                        android:textSize="20sp"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -75,13 +75,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="20sp"
                         android:text="]" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txtCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="20sp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:textColor="@color/black" />
 
                 <LinearLayout
@@ -94,12 +96,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:textSize="20sp"
                         android:text=" => " />
 
                     <TextView
                         android:id="@+id/txtTranslations"
                         android:layout_width="match_parent"
-                        android:layout_height="26sp"
+                        android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@android:color/holo_green_dark"
                         android:textSize="20sp" />
@@ -108,7 +111,7 @@
                 <TextView
                     android:id="@+id/txtLookup"
                     android:layout_width="match_parent"
-                    android:layout_height="26sp"
+                    android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@android:color/holo_green_light"
                     android:textSize="20sp" />
@@ -120,11 +123,6 @@
                     android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

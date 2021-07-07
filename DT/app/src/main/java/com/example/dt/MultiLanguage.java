@@ -4,6 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.provider.SearchRecentSuggestions;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.SearchView;
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +49,8 @@ public class MultiLanguage extends AppCompatActivity {
     ArrayList<JSONObject> listLang = new ArrayList<JSONObject>();
     ArrayList<String> lang = new ArrayList<>();
     ArrayAdapter adapter;//ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_dropdown_item_1line);
-    SearchView searchView;
+    //SearchView searchView;
+    EditText editText;
     LinearProgressIndicator loading;
 
     @Override
@@ -53,13 +60,16 @@ public class MultiLanguage extends AppCompatActivity {
 
         sp1 = (Spinner) findViewById(R.id.spinner);
         sp2 = (Spinner) findViewById(R.id.spinner2);
-        searchView = (SearchView) findViewById(R.id.search_view);
+
+        //searchView = (SearchView) findViewById(R.id.search_view);
+
         result = (TextView) findViewById(R.id.txtResult);
+        editText = (EditText) findViewById(R.id.text_content);
         loading = (LinearProgressIndicator) findViewById(R.id.loading2);
         loading.hide();
         GetListLang();
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lang);
+        adapter = new ArrayAdapter(this, R.layout.spinner_item, lang);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -85,6 +95,8 @@ public class MultiLanguage extends AppCompatActivity {
                 JSONObject obj = listLang.get(position);
                 try {
                     to = obj.getString("code");
+                    Translate translate = new Translate(editText.getText().toString(), to, from, result, loading);
+                    translate.GetTranslations();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -95,8 +107,25 @@ public class MultiLanguage extends AppCompatActivity {
 
             }
         });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Translate translate = new Translate(s.toString(), to, from, result, loading);
+                translate.GetTranslations();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Translate translate = new Translate(query, to, from, result, loading);
@@ -114,7 +143,7 @@ public class MultiLanguage extends AppCompatActivity {
             public void onClick(View v) {
                 searchView.setIconified(false);
             }
-        });
+        });*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
