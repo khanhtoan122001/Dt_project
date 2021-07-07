@@ -18,7 +18,11 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"/>
 
-            <TableLayout
+            <SearchView
+                android:id="@+id/search_view"
+                android:searchSuggestAuthority="com.example.dt.MySuggestionProvider"
+                android:searchSuggestSelection=" ?"
+                android:showAsAction="ifRoom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:stretchColumns="0, 1"
