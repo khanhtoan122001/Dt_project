@@ -23,6 +23,21 @@ public class Eng_Vie extends AppCompatActivity {
         //Context context = this;
         setContentView(R.layout.activity_eng_vie);
 
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            Intent intentResult = new Intent(Eng_Vie.this, SearchResult.class);
+            intentResult.putExtra("eng", query);
+
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(Eng_Vie.this,
+                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+
+            suggestions.saveRecentQuery(query, null);
+
+            startActivity(intentResult);
+        }
+
         /*SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -64,20 +79,7 @@ public class Eng_Vie extends AppCompatActivity {
         SearchView searchView = (SearchView)
                 MenuItemCompat.getActionView(searchItem);
 
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
 
-            Intent intentResult = new Intent(Eng_Vie.this, SearchResult.class);
-            intentResult.putExtra("eng", query);
-
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(Eng_Vie.this,
-                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
-
-            suggestions.saveRecentQuery(query, null);
-
-            startActivity(intentResult);
-        }
 
         /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
