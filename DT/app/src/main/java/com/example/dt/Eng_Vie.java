@@ -80,8 +80,6 @@ public class Eng_Vie extends AppCompatActivity {
         SearchView searchView = (SearchView)
                 MenuItemCompat.getActionView(searchItem);
 
-
-
         /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
