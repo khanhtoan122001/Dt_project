@@ -48,6 +48,14 @@ public class SearchResult extends AppCompatActivity {
                     case R.id.speak:
                         playMedia();
                         return true;
+                    case R.id.search:
+                        Intent intent1 = new Intent(SearchResult.this, Eng_Vie.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.main:
+                        Intent intent2 = new Intent(SearchResult.this, MainActivity.class);
+                        startActivity(intent2);
+                        return true;
                 }
                 return false;
             }

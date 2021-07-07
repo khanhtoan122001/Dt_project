@@ -29,4 +29,6 @@
     <string name="content_description_search">search_des</string>
     <string name="edit">edit</string>
     <string name="content_description_edit">edit_des</string>
+    <string name="main">main</string>
+    <string name="content_description_main">main_des</string>
 </resources>

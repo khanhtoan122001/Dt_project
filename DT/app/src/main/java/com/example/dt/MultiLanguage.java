@@ -115,6 +115,7 @@ public class MultiLanguage extends AppCompatActivity {
                 searchView.setIconified(false);
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void GetListLang(){
