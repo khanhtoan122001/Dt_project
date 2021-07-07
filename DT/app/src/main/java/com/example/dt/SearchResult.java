@@ -63,7 +63,6 @@ public class SearchResult extends AppCompatActivity {
         translate = new Translate(eng, "vi", "en", txtTranslations, txtLookup, txtExamples, this, loading);
         translate.Run();
         //translate.GetLookup();
-        txtTranslations.setText("=>" + txtTranslations.getText());
         sendRequest();
         //playMedia();
     }
@@ -87,7 +86,6 @@ public class SearchResult extends AppCompatActivity {
         dr = new DictionaryRequest(this, txtSpelling, txtCategory, loading, mediaPlayer);
         url = dictionaryEntries("pronunciations");
         dr.execute(url);
-        txtSpelling.setText("[" + txtSpelling.getText() + "]");
     }
 
 }
