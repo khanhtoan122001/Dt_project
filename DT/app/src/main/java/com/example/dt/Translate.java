@@ -27,10 +27,10 @@ import okhttp3.Response;
 
 
 public class Translate extends AppCompatActivity {
-    final String text, to, from;
-    final TextView txtTranslations, txtLookup, txtExamples;
-    final Context context;
-    final LinearProgressIndicator loading;
+    String text, to, from;
+    TextView txtTranslations, txtLookup, txtExamples;
+    Context context;
+    LinearProgressIndicator loading;
     private static String subscriptionKey = "5840f6cb5483475b8219c76b7f49a78a";
 
     List<String> lookup = new ArrayList<>();
@@ -48,6 +48,14 @@ public class Translate extends AppCompatActivity {
         this.txtLookup = txtLookup;
         this.txtExamples = txtExamples;
         this.context = context;
+        this.loading = loading;
+    }
+
+    public Translate(String text, String to, String from, TextView txtTranslations, LinearProgressIndicator loading){
+        this.txtTranslations = txtTranslations;
+        this.text = text;
+        this.to = to;
+        this.from = from;
         this.loading = loading;
     }
 

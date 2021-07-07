@@ -1,6 +1,8 @@
 package com.example.dt;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.SearchView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;*/
+
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -31,12 +35,14 @@ import okhttp3.Response;
 
 public class MultiLanguage extends AppCompatActivity {
 
-    TextView list;
+    TextView result;
     Spinner sp1, sp2;
     String from = "", to = "";
     ArrayList<JSONObject> listLang = new ArrayList<JSONObject>();
     ArrayList<String> lang = new ArrayList<>();
     ArrayAdapter adapter;//ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_dropdown_item_1line);
+    SearchView searchView;
+    LinearProgressIndicator loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +51,15 @@ public class MultiLanguage extends AppCompatActivity {
 
         sp1 = (Spinner) findViewById(R.id.spinner);
         sp2 = (Spinner) findViewById(R.id.spinner2);
-
-
+        searchView = (SearchView) findViewById(R.id.search_view);
+        result = (TextView) findViewById(R.id.txtResult);
+        loading = (LinearProgressIndicator) findViewById(R.id.loading2);
+        loading.hide();
         GetListLang();
 
         adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lang);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -84,6 +91,20 @@ public class MultiLanguage extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Translate translate = new Translate(query, to, from, result, loading);
+                translate.GetTranslations();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 
