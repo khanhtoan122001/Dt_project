@@ -29,12 +29,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a870bada-adf6-4b3c-8e86-eb749c8261ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/dt/Eng_Vie.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/dt/Eng_Vie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/dt/MultiLanguage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/dt/MultiLanguage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/dt/Translate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/dt/Translate.java" afterDir="false" />
-    </list>
+    <list default="true" id="a870bada-adf6-4b3c-8e86-eb749c8261ca" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
