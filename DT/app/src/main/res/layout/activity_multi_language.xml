@@ -48,13 +48,14 @@
             <TextView
                 android:id="@+id/txtResult"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:scrollbars = "vertical"
                 android:paddingRight="10dp"
                 android:textSize="20dp"
-                android:background="@drawable/back" />
+                android:hint="Kết quả..."/>
 
             <Spinner
                 android:id="@+id/spinner"

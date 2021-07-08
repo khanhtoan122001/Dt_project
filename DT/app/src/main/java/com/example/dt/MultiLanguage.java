@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.provider.SearchRecentSuggestions;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.widget.AbsListView;
 import android.widget.EditText;
@@ -75,6 +76,8 @@ public class MultiLanguage extends AppCompatActivity {
         loading = (LinearProgressIndicator) findViewById(R.id.loading2);
         loading.hide();
         GetListLang();
+
+        result.setMovementMethod(new ScrollingMovementMethod());
 
         adapter = new ArrayAdapter(this, R.layout.spinner_item, lang);
 
@@ -213,8 +216,9 @@ public class MultiLanguage extends AppCompatActivity {
                             }
                             else{
                                 editText.setText(text);
-                                sp2.setSelection(85);
                             }
+
+                            sp2.setSelection(85);
 
                             //list.setText(jsonArray.toString());
 

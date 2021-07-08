@@ -37,8 +37,10 @@ public class SearchResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
         Intent intent = getIntent();
         eng = intent.getStringExtra("eng");
+
         toolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
         toolbar.setTitle(eng);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
