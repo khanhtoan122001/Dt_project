@@ -72,8 +72,9 @@ public class Translate extends AppCompatActivity {
                 .host("api.cognitive.microsofttranslator.com")
                 .addPathSegment("/translate")
                 .addQueryParameter("api-version", "3.0")
-                .addQueryParameter("from", from)
+                //.addQueryParameter("from", from)
                 .addQueryParameter("to", to)
+                .addQueryParameter("toScript", "latn")
                 .build();
     }
 

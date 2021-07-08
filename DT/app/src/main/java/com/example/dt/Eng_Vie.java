@@ -22,12 +22,17 @@ public class Eng_Vie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Context context = this;
         setContentView(R.layout.activity_eng_vie);
-
+        Intent intentResult;
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
-            Intent intentResult = new Intent(Eng_Vie.this, SearchResult.class);
+            if(query.contains(" ")){
+                intentResult = new Intent(Eng_Vie.this, MultiLanguage.class);
+            }else{
+                intentResult = new Intent(Eng_Vie.this, SearchResult.class);
+            }
+
             intentResult.putExtra("eng", query);
 
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(Eng_Vie.this,

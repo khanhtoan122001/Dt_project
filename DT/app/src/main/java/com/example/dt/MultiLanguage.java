@@ -3,6 +3,7 @@ package com.example.dt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.provider.SearchRecentSuggestions;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,6 +53,8 @@ public class MultiLanguage extends AppCompatActivity {
     //SearchView searchView;
     EditText editText;
     LinearProgressIndicator loading;
+    String text;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,10 @@ public class MultiLanguage extends AppCompatActivity {
 
         sp1 = (Spinner) findViewById(R.id.spinner);
         sp2 = (Spinner) findViewById(R.id.spinner2);
+
+        Intent intent = getIntent();
+        text = intent.getStringExtra("eng");
+
 
         //searchView = (SearchView) findViewById(R.id.search_view);
 
@@ -200,6 +207,14 @@ public class MultiLanguage extends AppCompatActivity {
 
                             sp1.setAdapter(adapter);
                             sp2.setAdapter(adapter);
+
+                            if(text == null){
+                                text = "hi";
+                            }
+                            else{
+                                editText.setText(text);
+                                sp2.setSelection(85);
+                            }
 
                             //list.setText(jsonArray.toString());
 
